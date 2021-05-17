@@ -39,12 +39,13 @@ function draw(){
   // Code here runs continuously
   background(220);
 
+  noFill();
   strokeWeight(4);
 
   
   // green circle
   stroke(color(0, 255, 0));
-  ellipse(50, 100, 50, 50);
+  ellipse(190, 80, 50, 50);
   
     // blue circle
   stroke(color(0, 0, 255));
@@ -52,13 +53,13 @@ function draw(){
   
   //red circle
   stroke(color(255, 0, 0));
-  ellipse(200, 50, 50, 50);
+  ellipse(220, 50, 50, 50);
 
   //black circle
   stroke(color(80, 80, 100));
-  ellipse(50, 150, 50, 50);
+  ellipse(160, 50, 50, 50);
   
   //yellow circle
   stroke(color(255, 204, 0));
-  ellipse(200, 200, 50, 50);
+  ellipse(130, 80, 50, 50);
 }
