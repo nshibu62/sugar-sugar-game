@@ -1,6 +1,9 @@
 /* global createCanvas, colorMode, HSB, color, noStroke, fill, noFill, strokeWeight,
-background, ellipse, text, stroke, line, 
+background, ellipse, text, stroke, line, globalS, globalB
 */
+
+//https://learnui.design/blog/the-hsb-color-system-practicioners-primer.html
+// a useful reference about HSB
 
 // We'll use variables for most of our colors in this code-along.
 let backgroundColor, color1, color2, textColor;
@@ -10,6 +13,9 @@ function setup() {
   createCanvas(400, 400);
   colorMode(HSB, 360, 100, 100);
   noStroke();
+  
+  globalS = 80;
+  globalB = 80;
 
   // When used with only one argument, the color mode is greyscale.
   // 0 is black and 100 is white.
@@ -20,8 +26,8 @@ function setup() {
   //       is blue.
   // SATURATION - 0 is no color (greyscale), and 100 is as bold as possible.
   // BRIGHTNESS - 0 is no light (black), and 100 is as bright as possible.
-  color1 = color(0, 80, 80);
-  color2 = color(200, 80, 80);
+  color1 = color(0, globalS, globalB);
+  color2 = color(200, globalS, globalB);
 }
 
 function draw() {
