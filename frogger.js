@@ -2,7 +2,7 @@
 background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random
 mouseIsPressed, priorX, priorY, collideCircleCircle
-keyCode, UP_ARROW, textSize
+keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW
 */
 
 
@@ -43,7 +43,13 @@ function keyPressed() {
     frogY -= 10;
   }
   if (keyCode === DOWN_ARROW) {
-    
+    frogY += 10;
+  }
+  if (keyCode === RIGHT_ARROW) {
+    frogX += 10;
+  }
+  if (keyCode === LEFT_ARROW) {
+    frogX -= 10;
   }
 }
 
