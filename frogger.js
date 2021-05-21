@@ -2,7 +2,7 @@
 background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random
 mouseIsPressed, priorX, priorY, collideCircleCircle
-keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW
+keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle
 */
 
 
@@ -55,9 +55,14 @@ function keyPressed() {
 
 function moveCars() {
   // Move the car
-
+  if (car1X < width){
+    car1X += car1V    
+  }
   // Reset if it moves off screen
-
+  else {
+    car1X = 0;
+    car1Y = random(height);
+  }
 }
 
 function drawCars() {
@@ -69,12 +74,25 @@ function drawCars() {
 
 function checkCollisions() {
   // If the frog collides with the car, reset the frog and subtract a life.
-
+  if (collideRectCircle(car1X, car1Y, 40, 30, frogX, frogY, 20)){
+    consol.log("collided with Car 1");
+    frogY = height;
+    frogX = random(width);
+    lives -= 1;
+  }
+  if (lives < 1) {
+    gameIsOver = true;
+  }
 }
 
 function checkWin() {
   // If the frog makes it into the yellow gold zone, increment the score
   // and move the frog back down to the bottom.
+  if (frogY < 50){
+    score += 1;
+    frogX = random(width);
+    frogY = height;
+  }
 }
 
 function displayScores() {
@@ -83,6 +101,7 @@ function displayScores() {
   // Display Lives
   text(`Lives: ${lives}`, 10, 20);
   // Display Score
+  text(`Score: `)
 
   // Display game over message if the game is over
 
