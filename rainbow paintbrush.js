@@ -1,6 +1,7 @@
 /* global createCanvas, colorMode, HSB, color, noStroke, fill, noFill, strokeWeight,
 background, ellipse, text, stroke, line, globalS, globalB
-width, height, mouseX, mouseY, rect
+width, height, mouseX, mouseY, rect, ellipse, random
+mouseIsPressed
 */
 
 let brushHue
@@ -12,11 +13,14 @@ function setup() {
   brushHue = 0;
   strokeWeight(6);
   background(95);
+  
 }
 
 function draw() {
   chooseColors();
+  if (mouseIsPressed) {
   rect(mouseX, mouseY, 15, 15);
+  }
 }
 
 function chooseColors() {
@@ -32,3 +36,7 @@ function chooseColors() {
 function keyPressed() {
   background(95);
 }
+
+//function mousePressed() {
+// ellipse(random(width), random(height), 30, 30);
+//}
