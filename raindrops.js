@@ -75,7 +75,6 @@ function drawCars() {
 function checkCollisions() {
   // If the frog collides with the car, reset the frog and subtract a life.
   if (collideRectCircle(car1X, car1Y, 40, 30, frogX, frogY, 20)){
-    consol.log("collided with Car 1");
     frogY = height;
     frogX = random(width);
     lives -= 1;
@@ -88,7 +87,7 @@ function checkCollisions() {
 function checkWin() {
   // If the frog makes it into the yellow gold zone, increment the score
   // and move the frog back down to the bottom.
-  if (frogY < 50){
+  if (frogY < 50 && !gameIsOver){
     score += 1;
     frogX = random(width);
     frogY = height;
@@ -101,8 +100,11 @@ function displayScores() {
   // Display Lives
   text(`Lives: ${lives}`, 10, 20);
   // Display Score
-  text(`Score: `)
+  text(`Score: ${score}`, 10, 40);
 
   // Display game over message if the game is over
-
+  if (gameIsOver) {
+    textSize(50);
+    text(`Game Is Over`, 30, height/2);
+  }
 }
