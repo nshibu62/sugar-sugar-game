@@ -2,6 +2,7 @@
 background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random
 mouseIsPressed, priorX, priorY, collideCircleCircle
+keyCode, UP_ARROW, textSize
 */
 
 
@@ -13,7 +14,7 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   backgroundColor = 95;
   frogX = random(width);
-  frogY = random(height);
+  frogY = height;
   score = 0;
   lives = 3;
   gameIsOver = false;
@@ -40,6 +41,9 @@ function draw() {
 function keyPressed() {
   if (keyCode === UP_ARROW) {
     frogY -= 10;
+  }
+  if (keyCode === DOWN_ARROW) {
+    
   }
 }
 
