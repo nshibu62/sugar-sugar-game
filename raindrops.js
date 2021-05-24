@@ -3,11 +3,11 @@ background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random
 mouseIsPressed, priorX, priorY, collideCircleCircle
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle
-drop1, drop2, 
+drop1, drop2, drop
 */
 
 
-let drop1x, drop1y, drop1d, drop1FallSpeed;
+let drop1x, drop1y, drop1d, drop1FallSpeed, drops;
 function setup() {
 createCanvas(500, 500);
 colorMode(HSB, 100);
@@ -25,19 +25,21 @@ drop2 = {
   d: 8,
   fallSpeed: 7
 }
+drops = [drop1, drop2];
 }
 function draw() {
 background(0, 0, 95);
-//// Code for droplet 1
-// Move droplet 1
-drop1.y += drop1.fallSpeed;
-// If it goes off the screen...
-if (drop1.y > height) {
+for (let i = 0; i < 2; i++){
+drop = drop[i];
+drop.y += drop.fallSpeed;
+if (drop.y > height) {
   // ...reset it...
-  drop1.y = 0;
+  drop.y = 0;
   // ...and move it somewhere random.
-  drop1.x = random(width);
+  drop.x = random(width);
 }
+}
+// If it goes off the screen...
 // Display droplet 1
 noStroke();
 fill(60, 80, 80);
