@@ -3,108 +3,48 @@ background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random
 mouseIsPressed, priorX, priorY, collideCircleCircle
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle
+drop1, drop2, 
 */
 
 
-let backgroundColor, frogX, frogY, score, lives, gameIsOver, car1X, car1Y, car1V;
-
+let drop1x, drop1y, drop1d, drop1FallSpeed;
 function setup() {
-  // Canvas & color settings
-  createCanvas(500, 500);
-  colorMode(HSB, 360, 100, 100);
-  backgroundColor = 95;
-  frogX = random(width);
-  frogY = height;
-  score = 0;
-  lives = 3;
-  gameIsOver = false;
-  car1X = 0;
-  car1Y = 100;
-  car1V = 5;
+createCanvas(500, 500);
+colorMode(HSB, 100);
+// Variables for droplet 1
+drop1 = {
+  x: 200,
+  y: 0,
+  d: 14,
+  fallSpeed: 8
+};
+// Variables for droplet 2
+drop2 = {
+  x: random(width),
+  y: random(height),
+  d: 8,
+  fallSpeed: 7
 }
-
+}
 function draw() {
-  background(backgroundColor);
-  // Code for gold goal line
-  fill(60, 80, 80);
-  rect(0, 0, width, 50);
-  // Code to display Frog
-  fill(120, 80, 80);
-  ellipse(frogX, frogY, 20);
-  moveCars();
-  drawCars();
-  checkCollisions();
-  checkWin();
-  displayScores();
+background(0, 0, 95);
+//// Code for droplet 1
+// Move droplet 1
+drop1.y += drop1.fallSpeed;
+// If it goes off the screen...
+if (drop1.y > height) {
+  // ...reset it...
+  drop1.y = 0;
+  // ...and move it somewhere random.
+  drop1.x = random(width);
 }
-
-function keyPressed() {
-  if (keyCode === UP_ARROW) {
-    frogY -= 10;
-  }
-  if (keyCode === DOWN_ARROW) {
-    frogY += 10;
-  }
-  if (keyCode === RIGHT_ARROW) {
-    frogX += 10;
-  }
-  if (keyCode === LEFT_ARROW) {
-    frogX -= 10;
-  }
+// Display droplet 1
+noStroke();
+fill(60, 80, 80);
+ellipse(drop1.x, drop1.y, drop1.d);
+//// Code for droplet 2
+// Code your next droplet here
 }
-
-function moveCars() {
-  // Move the car
-  if (car1X < width){
-    car1X += car1V    
-  }
-  // Reset if it moves off screen
-  else {
-    car1X = 0;
-    car1Y = random(height);
-  }
-}
-
-function drawCars() {
-  // Code for car 1
-  fill(0, 80, 80);
-  rect(car1X, car1Y, 40, 30);
-  // Code for additional cars
-}
-
-function checkCollisions() {
-  // If the frog collides with the car, reset the frog and subtract a life.
-  if (collideRectCircle(car1X, car1Y, 40, 30, frogX, frogY, 20)){
-    frogY = height;
-    frogX = random(width);
-    lives -= 1;
-  }
-  if (lives < 1) {
-    gameIsOver = true;
-  }
-}
-
-function checkWin() {
-  // If the frog makes it into the yellow gold zone, increment the score
-  // and move the frog back down to the bottom.
-  if (frogY < 50 && !gameIsOver){
-    score += 1;
-    frogX = random(width);
-    frogY = height;
-  }
-}
-
-function displayScores() {
-  textSize(12);
-  fill(0);
-  // Display Lives
-  text(`Lives: ${lives}`, 10, 20);
-  // Display Score
-  text(`Score: ${score}`, 10, 40);
-
-  // Display game over message if the game is over
-  if (gameIsOver) {
-    textSize(50);
-    text(`Game Is Over`, 30, height/2);
-  }
+function mousePressed() {
+console.log(drop1.x);
 }
