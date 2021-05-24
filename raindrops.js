@@ -27,10 +27,10 @@ function setup() {
   drops = [drop1, drop2];
 }
 function draw() {
-  background(0, 0, 95);
+  background(100, 0, 95);
   noStroke();
-  for (let i = 0; i < 1; i++) {
-    drop = drop[i];
+  for (let i = 0; i < 2; i++) {
+    drop = drops[i];
     drop.y += drop.fallSpeed;
     if (drop.y > height) {
       // ...reset it...
@@ -38,8 +38,11 @@ function draw() {
       // ...and move it somewhere random.
       drop.x = random(width);
     }
-
-    fill(60, 80, 80);
     ellipse(drop.x, drop.y, drop.d);
   }
+}
+
+function mousePressed() {
+ const drop = drops[0];
+ console.log(drop.x);
 }
