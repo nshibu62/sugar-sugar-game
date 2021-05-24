@@ -6,47 +6,40 @@ keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collid
 drop1, drop2, drop
 */
 
-
 let drop1x, drop1y, drop1d, drop1FallSpeed, drops;
 function setup() {
-createCanvas(500, 500);
-colorMode(HSB, 100);
-// Variables for droplet 1
-drop1 = {
-  x: 200,
-  y: 0,
-  d: 14,
-  fallSpeed: 8
-};
-// Variables for droplet 2
-drop2 = {
-  x: random(width),
-  y: random(height),
-  d: 8,
-  fallSpeed: 7
-}
-drops = [drop1, drop2];
+  createCanvas(500, 500);
+  colorMode(HSB, 100);
+  // Variables for droplet 1
+  drop1 = {
+    x: 200,
+    y: 0,
+    d: 14,
+    fallSpeed: 8
+  };
+  // Variables for droplet 2
+  drop2 = {
+    x: random(width),
+    y: random(height),
+    d: 8,
+    fallSpeed: 7
+  };
+  drops = [drop1, drop2];
 }
 function draw() {
-background(0, 0, 95);
-for (let i = 0; i < 2; i++){
-drop = drop[i];
-drop.y += drop.fallSpeed;
-if (drop.y > height) {
-  // ...reset it...
-  drop.y = 0;
-  // ...and move it somewhere random.
-  drop.x = random(width);
-}
-}
-// If it goes off the screen...
-// Display droplet 1
-noStroke();
-fill(60, 80, 80);
-ellipse(drop1.x, drop1.y, drop1.d);
-//// Code for droplet 2
-// Code your next droplet here
-}
-function mousePressed() {
-console.log(drop1.x);
+  background(0, 0, 95);
+  noStroke();
+  for (let i = 0; i < 1; i++) {
+    drop = drop[i];
+    drop.y += drop.fallSpeed;
+    if (drop.y > height) {
+      // ...reset it...
+      drop.y = 0;
+      // ...and move it somewhere random.
+      drop.x = random(width);
+    }
+
+    fill(60, 80, 80);
+    ellipse(drop.x, drop.y, drop.d);
+  }
 }
