@@ -33,16 +33,16 @@ function setup() {
   drop4 = {
     x: random(width),
     y: random(height),
-    d: 9,
-    fallSpeed: 9
+    d: 6,
+    fallSpeed: 12
   };
-  drops = [drop1, drop2, drop3];
+  drops = [drop1, drop2, drop3, drop4];
 }
 function draw() {
   background(95);
   noStroke();
   fill(200,80,50);
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 4; i++) {
     drop = drops[i];
     drop.y += drop.fallSpeed;
     if (drop.y > height) {
