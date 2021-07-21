@@ -6,7 +6,7 @@ keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collid
 */
 
 let drops, person, hit, cloud;
-let personX, personV;
+let personX, personV, cloudX, cloudV;
 
 function setup() {
   createCanvas(500, 500);
@@ -14,7 +14,7 @@ function setup() {
   
   //load images
   person = loadImage('https://cdn.glitch.com/2adfe987-b026-4c83-934e-40f7d5f35d66%2F1-removebg-preview%20(1).png?v=1626878913521');
-  
+  cloud = loadImage('https://cdn.glitch.com/2adfe987-b026-4c83-934e-40f7d5f35d66%2Fd6b7e0d2a30743bd44e553006785e5f4.png?v=1626879961420');
   
   drops = [
   ];
@@ -22,7 +22,7 @@ function setup() {
   for (let i = 0; i < 10; i++){
     append(drops, {
       x: random(width),
-      y: random(height),
+      y: random(75, 500),
       d: random(5, 15),
       fallSpeed: random(8, 20)});
   }
@@ -30,6 +30,10 @@ function setup() {
   //person controls
   personX = 0;
   personV = 1;
+  
+  //cloud controls
+  cloudX = 0;
+  cloudV = 0.25;
 }
 
 function draw() {
@@ -42,12 +46,22 @@ function draw() {
     personX = 0;
   }
   
+  //clouds
+  image(cloud, cloudX, -50, 500, 300);
+  image(cloud, (cloudX-300), -50, 500, 300);
+  image(cloud, (cloudX-400), -50, 500, 300);
+  image(cloud, (cloudX-500), -50, 500, 300);
+  cloudX += cloudV;
+  if (cloudX > 500){
+    cloudX = 0;
+  }
+  
   
   for (let i = 0; i < drops.length; i++){
     let drop = drops[i];
     drop.y += drop.fallSpeed;
     if (drop.y > height) {
-      drop.y = 0;
+      drop.y = 75;
       drop.x = random(width);
     }
     noStroke();
@@ -59,7 +73,7 @@ function draw() {
   for (let j = 0; j < drops.length; j++){
     hit = collideRectCircle(personX, 305, 140, 200, drops[j].x, drops[j].y, drops[j].d);
     if (hit){
-      drops[j].y = 0;
+      drops[j].y = 75;
     }
   }
 }
