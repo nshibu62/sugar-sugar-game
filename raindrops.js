@@ -5,7 +5,7 @@ mouseIsPressed, priorX, priorY, collideCircleCircle
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle
 */
 
-let drop1x, drop1y, drop1d, drop1fallSpeed, drop1, drop2, drop3, drop4, drops;
+let drops;
 
 function setup() {
   createCanvas(500, 500);
@@ -42,63 +42,24 @@ function setup() {
 function draw() {
   background(0, 0, 95);
    
-  for (let i=0; i < drops.length; i++){
-    drops[i].y += drops[i].fallSpeed;
-    if (drops[i].y > height) {
-      drops[i].y
+  
+  for (let i = 0; i < drops.length; i++){
+    let drop = drops[i];
+    drop.y += drop.fallSpeed;
+    if (drop.y > height) {
+      drop.y = 0;
+      drop.x = random(width);
     }
+    noStroke();
+    fill(60, 80, 80);
     ellipse(drops[i].x, drops[i].y, drops[i].d);
     
   }
-  
-  
-  //// Code for droplet 1
-  // Move droplet 1
-  let drop = drops[0];
-  drop.y += drop.fallSpeed;
-  // If it goes off the screen...
-  if (drop.y > height) {
-    // ...reset it...
-    drop.y = 0;
-    // ...and move it somewhere random.
-    drop.x = random(width);
-  }
-  // Display droplet 1
-  noStroke();
-  fill(60, 80, 80);
-  ellipse(drop.x, drop.y, drop.d);
-  
-  //// Code for droplet 2
-  drop = drops[1];
-  // Move droplet 2
-  drop.y += drop.fallSpeed;
-  // If it goes off the screen...
-  if (drop.y > height) {
-    // ...reset it...
-    drop.y = 0;
-    // ...and move it somewhere random.
-    drop.x = random(width);
-  }
-  // Display droplet 2
-  ellipse(drop.x, drop.y, drop.d);
-  
-  // Code your droplet 3
-  drop = drops[2];
-  // Move droplet 3
-  drop.y += drop.fallSpeed;
-  // If it goes off the screen...
-  if (drop.y > height) {
-    // ...reset it...
-    drop.y = 0;
-    // ...and move it somewhere random.
-    drop.x = random(width);
-  }
-  // Display droplet 3
-  ellipse(drop.x, drop.y, drop.d);
 }
 
-/*
+
 function mousePressed() {
+  for (let j = 0; )
   console.log('Drop 1 x Value:');
   console.log(drop1.x);
   
@@ -107,4 +68,4 @@ function mousePressed() {
   
   console.log('Drop 3 x Value:');
   console.log(drop3.x);
-}*/
+}
