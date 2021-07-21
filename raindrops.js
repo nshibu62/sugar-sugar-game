@@ -2,7 +2,7 @@
 background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random
 mouseIsPressed, priorX, priorY, collideCircleCircle
-keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle
+keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
 */
 
 let drops;
@@ -10,33 +10,21 @@ let drops;
 function setup() {
   createCanvas(500, 500);
   colorMode(HSB, 100);
-
+  
+  //load images
+  loadImage('')
+  
+  
   drops = [
-    {
-      x: 200,
-      y: 0,
-      d: 10,
-      fallSpeed: 8
-    },
-    {
-      x: random(width),
-      y: random(height),
-      d: random(5, 15),
-      fallSpeed: random(8, 20)
-    },
-    {
-      x: random(width),
-      y: random(height),
-      d: random(5, 15),
-      fallSpeed: random(8, 20)
-    },
-    {
-      x: random(width),
-      y: random(height),
-      d: random(5, 15),
-      fallSpeed: random(8, 20)
-    }
   ];
+  
+  for (let i = 0; i < 10; i++){
+    append(drops, {
+      x: random(width),
+      y: random(height),
+      d: random(5, 15),
+      fallSpeed: random(8, 20)});
+  }
 }
 
 function draw() {
