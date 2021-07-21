@@ -5,7 +5,7 @@ mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
 */
 
-let drops, person, hit, cloud, slider;
+let drops, numDrops, person, hit, cloud, slider;
 let personX, personV, cloudX, cloudV;
 
 function setup() {
@@ -18,16 +18,14 @@ function setup() {
   
 
   //slider
-  slider = createSlider(5, 500,);
+  slider = createSlider(5, 20, 10, 5);
   slider.position(10, 510);
   slider.style('width', '80px');
-  let numDrops = slider.value();
   
   //create array of drops
   drops = [
   ];
-  
-  for (let i = 0; i < (numDrops); i++){
+  for (let i = 0; i < slider.value(); i++){
     append(drops, {
       x: random(width),
       y: random(75, 500),
@@ -48,6 +46,11 @@ function setup() {
 
 function draw() {
   background(0, 0, 80);
+
+  numDrops = slider.value();
+
+
+  
   fill(0,0,0);
   text("Rain", 30, 490);
   
@@ -69,7 +72,7 @@ function draw() {
   }
   
   
-  for (let i = 0; i < drops.length; i++){
+  for (let i = 0; i < numDrops; i++){
     let drop = drops[i];
     drop.y += drop.fallSpeed;
     if (drop.y > height) {
@@ -90,11 +93,11 @@ function draw() {
   }
 }
 
-
+/*
 function mousePressed() {
   for (let j = 0; j < drops.length; j++){
     let drop = drops[j];
     console.log('Drop ' + (j+1) + ' x Value:');
     console.log(drop.x);
   }
-}
+}*/
