@@ -5,39 +5,50 @@ mouseIsPressed, priorX, priorY, collideCircleCircle
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle
 */
 
-let drop1x, drop1y, drop1d, drop1FallSpeed;
+let drop1x, drop1y, drop1d, drop1fallSpeed, drop1, drop2;
 
 function setup() {
   createCanvas(500, 500);
   colorMode(HSB, 100);
+  
   // Variables for droplet 1
-  drop1x = 200; // or random(width)
-  drop1y = 0; // or random(height)
-  drop1d = 10; // or random(5,15)
-  drop1FallSpeed = 8; // or random(8, 20)
+  drop1 = {
+    x: 200,
+    y: 0,
+    d: 10,
+    fallSpeed: 8
+  }
+
   // Variables for droplet 2
+  drop2 = {
+    x: random(width),
+    y: random(height),
+    d: random(5, 15),
+    fallSpeed: random(8, 20)
+  }
 }
 
 function draw() {
   background(0, 0, 95);
   //// Code for droplet 1
   // Move droplet 1
-  drop1y += drop1FallSpeed;
+  drop1.y += drop1.fallSpeed;
   // If it goes off the screen...
-  if (drop1y > height) {
+  if (drop1.y > height) {
     // ...reset it...
-    drop1y = 0;
+    drop1.y = 0;
     // ...and move it somewhere random.
-    drop1x = random(width);
+    drop1.x = random(width);
   }
   // Display droplet 1
   noStroke();
   fill(60, 80, 80);
-  ellipse(drop1x, drop1y, drop1d);
+  ellipse(drop1.x, drop1.y, drop1.d);
+  
   //// Code for droplet 2
   // Code your next droplet here
 }
 
 function mousePressed() {
-  console.log(drop1x);
+  console.log(drop1.x);
 }
