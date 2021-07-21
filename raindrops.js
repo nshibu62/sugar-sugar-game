@@ -5,7 +5,7 @@ mouseIsPressed, priorX, priorY, collideCircleCircle
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle
 */
 
-let drop1x, drop1y, drop1d, drop1fallSpeed, drop1, drop2, drop3;
+let drop1x, drop1y, drop1d, drop1fallSpeed, drop1, drop2, drop3, drops;
 
 function setup() {
   createCanvas(500, 500);
@@ -26,6 +26,12 @@ function setup() {
     d: random(5, 15),
     fallSpeed: random(8, 20)
   }
+
+drops = [
+  drop1,
+  drop2,
+  drop3
+];
 }
 
 function draw() {
@@ -33,46 +39,50 @@ function draw() {
   
   //// Code for droplet 1
   // Move droplet 1
-  drop1.y += drop1.fallSpeed;
+  let drop = drops[0];
+  drop.y += drop.fallSpeed;
   // If it goes off the screen...
-  if (drop1.y > height) {
+  if (drop.y > height) {
     // ...reset it...
-    drop1.y = 0;
+    drop.y = 0;
     // ...and move it somewhere random.
-    drop1.x = random(width);
+    drop.x = random(width);
   }
   // Display droplet 1
   noStroke();
   fill(60, 80, 80);
-  ellipse(drop1.x, drop1.y, drop1.d);
+  ellipse(drop.x, drop.y, drop.d);
   
   //// Code for droplet 2
+  drop = drops[1];
   // Move droplet 2
-  drop2.y += drop2.fallSpeed;
+  drop.y += drop.fallSpeed;
   // If it goes off the screen...
-  if (drop2.y > height) {
+  if (drop.y > height) {
     // ...reset it...
-    drop2.y = 0;
+    drop.y = 0;
     // ...and move it somewhere random.
-    drop2.x = random(width);
+    drop.x = random(width);
   }
   // Display droplet 2
-  ellipse(drop2.x, drop2.y, drop2.d);
+  ellipse(drop.x, drop.y, drop.d);
   
   // Code your droplet 3
+  drop = drops[2];
   // Move droplet 3
-  drop3.y += drop3.fallSpeed;
+  drop.y += drop.fallSpeed;
   // If it goes off the screen...
-  if (drop3.y > height) {
+  if (drop.y > height) {
     // ...reset it...
-    drop3.y = 0;
+    drop.y = 0;
     // ...and move it somewhere random.
-    drop3.x = random(width);
+    drop.x = random(width);
   }
   // Display droplet 3
-  ellipse(drop3.x, drop3.y, drop3.d);
+  ellipse(drop.x, drop.y, drop.d);
 }
 
+/*
 function mousePressed() {
   console.log('Drop 1 x Value:');
   console.log(drop1.x);
@@ -82,4 +92,4 @@ function mousePressed() {
   
   console.log('Drop 3 x Value:');
   console.log(drop3.x);
-}
+}*/
