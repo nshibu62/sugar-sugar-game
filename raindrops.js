@@ -1,11 +1,11 @@
 /* global createCanvas, colorMode, HSB, color, noStroke, fill, noFill, strokeWeight,
 background, ellipse, text, stroke, line, globalS, globalB
-width, height, mouseX, mouseY, rect, ellipse, random
+width, height, mouseX, mouseY, rect, ellipse, random, createSlider
 mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
 */
 
-let drops, person, hit, cloud;
+let drops, person, hit, cloud, slider;
 let personX, personV, cloudX, cloudV;
 
 function setup() {
@@ -16,10 +16,18 @@ function setup() {
   person = loadImage('https://cdn.glitch.com/2adfe987-b026-4c83-934e-40f7d5f35d66%2F1-removebg-preview%20(1).png?v=1626878913521');
   cloud = loadImage('https://cdn.glitch.com/2adfe987-b026-4c83-934e-40f7d5f35d66%2Fd6b7e0d2a30743bd44e553006785e5f4.png?v=1626879961420');
   
+
+  //slider
+  slider = createSlider(5, 500,);
+  slider.position(10, 510);
+  slider.style('width', '80px');
+  let numDrops = slider.value();
+  
+  //create array of drops
   drops = [
   ];
   
-  for (let i = 0; i < 10; i++){
+  for (let i = 0; i < (numDrops); i++){
     append(drops, {
       x: random(width),
       y: random(75, 500),
@@ -34,10 +42,14 @@ function setup() {
   //cloud controls
   cloudX = 0;
   cloudV = 0.25;
+  
+
 }
 
 function draw() {
   background(0, 0, 80);
+  fill(0,0,0);
+  text("Rain", 30, 490);
   
   //person walking
   image(person, personX, 305, 140, 200);
@@ -65,7 +77,7 @@ function draw() {
       drop.x = random(width);
     }
     noStroke();
-    fill(60, 80, 80);
+    fill(random(50,60), 80, 80);
     ellipse(drops[i].x, drops[i].y, drops[i].d);
     
   }
