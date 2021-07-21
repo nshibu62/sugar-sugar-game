@@ -59,13 +59,9 @@ function draw() {
 
 
 function mousePressed() {
-  for (let j = 0; )
-  console.log('Drop 1 x Value:');
-  console.log(drop1.x);
-  
-  console.log('Drop 2 x Value:');
-  console.log(drop2.x);
-  
-  console.log('Drop 3 x Value:');
-  console.log(drop3.x);
+  for (let j = 0; j < drops.length; j++){
+    let drop = drops[j];
+    console.log('Drop ' + (j+1) + ' x Value:');
+    console.log(drop.x);
+  }
 }
