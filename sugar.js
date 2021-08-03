@@ -63,7 +63,7 @@ function draw() {
   if (spawnTime < 0 && numOfSugar < numSugarLimit){
     sugarXcenter = random(290, 310);
     sugars.push(new Sugar(sugarHeight, sugarXcenter));
-    spawnTime = random(0.5, 0.7);
+    spawnTime = random(0.3, 0.35);
     numOfSugar++;
   }
   
