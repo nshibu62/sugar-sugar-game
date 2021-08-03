@@ -27,8 +27,6 @@ function draw() {
 
 function mousePressed(){
    stroke(0);
-  strokeWeight(5);
-   //point(mouseX, mouseY);
    line_points.push(mouseX);
     line_points.push(mouseY);
    console.log(line_points);
