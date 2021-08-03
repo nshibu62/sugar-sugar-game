@@ -1,7 +1,7 @@
 /* global createCanvas, colorMode, HSB, color, noStroke, fill, noFill, strokeWeight,
 background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random, createSlider, square
-mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image
+mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image, round
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
 textAlign, CENTER, collideLineRect
 */
@@ -119,13 +119,18 @@ class Sugar {
       
       let changeX = (line_points[i+2] - line_points[i]) -3;
       let changeY = (line_points[i+3] - line_points[i+1]);
-      reduce (round(changeY, -1), changeX);
+      // reduce (round(changeY, 0), round(changeX, 0));
+      // console.log(round(changeY, 0), round(changeX, 0));
+      // if (hitLineSquarecollision) {
+      //   //this.x += changeX;
+      //   // this.y += changeY;
+      //   this.x += simplifiedArr[0];
+      //   this.y += simplifiedArr[1];
+      // }  
       if (hitLineSquarecollision) {
-        //this.x += changeX;
-        // this.y += changeY;
-        this.x += simplifiedArr[0];
-        this.y += simplifiedArr[1];
-      }  
+        this.x += changeX;
+        this.y += changeY;
+      }
     }
     
   }
@@ -161,11 +166,11 @@ function mousePressed(){
 
 }
 
-function reduce(numer,denomin){
-  var gcd = function gcd(a,b){
-    return b ? gcd(b, a%b) : a;
-  };
-  gcd = gcd(numer,denomin);
-  simplifiedArr = [numer/gcd, denomin/gcd];
-  return simplifiedArr;
-}
+// function reduce(numer,denomin){
+//   var gcd = function gcd(a,b){
+//     return b ? gcd(b, a%b) : a;
+//   };
+//   gcd = gcd(numer,denomin);
+//   simplifiedArr = [numer/gcd, denomin/gcd];
+//   return simplifiedArr;
+// }
