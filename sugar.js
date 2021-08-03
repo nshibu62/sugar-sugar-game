@@ -11,7 +11,7 @@ textAlign, CENTER
 let backgroundColor, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
-let line_points;
+let line_points, hitLineSquarecollision;
 
 //Eban's global variables
 let sugarLeft, cups;
@@ -109,7 +109,12 @@ class Sugar {
   }
   
   checkSugarLineCollision() {
-
+    
+    for (let i = 0; i < line_points.length; i+= 4){
+    
+    //hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], 200, 300, 100, 150);
+  }
+    
   }
 }
 
