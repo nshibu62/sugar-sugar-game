@@ -101,6 +101,7 @@ class Sugar {
   }
   fall() {
     //if (!(lineCollide && cupCollide))
+    if (!(hitLineSquarecollision)){
     this.x += this.xv;
     this.y += this.yv;
     if (this.yv < 0.3) {
@@ -117,16 +118,11 @@ class Sugar {
       
       hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
       
-      let changeX = (line_points[i+2] - line_points[i]) -3;
+      let changeX = (line_points[i+2] - line_points[i]);
       let changeY = (line_points[i+3] - line_points[i+1]);
-      // reduce (round(changeY, 0), round(changeX, 0));
-      // console.log(round(changeY, 0), round(changeX, 0));
-      // if (hitLineSquarecollision) {
-      //   //this.x += changeX;
-      //   // this.y += changeY;
-      //   this.x += simplifiedArr[0];
-      //   this.y += simplifiedArr[1];
-      // }  
+      let length = Math.sqrt(changeX*changeX + changeY*changeY);
+      changeX = changeX/length;
+      changeY = changeY/length;
       if (hitLineSquarecollision) {
         this.x += changeX;
         this.y += changeY;
@@ -173,4 +169,14 @@ function mousePressed(){
 //   gcd = gcd(numer,denomin);
 //   simplifiedArr = [numer/gcd, denomin/gcd];
 //   return simplifiedArr;
+
+
+    // reduce (round(changeY, 0), round(changeX, 0));
+      // console.log(round(changeY, 0), round(changeX, 0));
+      // if (hitLineSquarecollision) {
+      //   //this.x += changeX;
+      //   // this.y += changeY;
+      //   this.x += simplifiedArr[0];
+      //   this.y += simplifiedArr[1];
+      // }  
 // }
