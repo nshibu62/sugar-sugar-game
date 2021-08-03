@@ -11,7 +11,7 @@ textAlign, CENTER, collideLineRect
 let backgroundColor, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
-let line_points, hitLineSquarecollision;
+let line_points, hitLineSquarecollision, simplifiedArr;
 
 //Eban's global variables
 let sugarLeft, cups;
@@ -119,9 +119,12 @@ class Sugar {
       
       let changeX = (line_points[i+2] - line_points[i]) -3;
       let changeY = (line_points[i+3] - line_points[i+1]);
+      reduce (round(changeY, -1), changeX);
       if (hitLineSquarecollision) {
-        this.x += changeX;
-        this.y += changeY;
+        //this.x += changeX;
+        // this.y += changeY;
+        this.x += simplifiedArr[0];
+        this.y += simplifiedArr[1];
       }  
     }
     
@@ -156,4 +159,13 @@ function mousePressed(){
   console.log(line_points);
   console.log(line_points.length);
 
+}
+
+function reduce(numer,denomin){
+  var gcd = function gcd(a,b){
+    return b ? gcd(b, a%b) : a;
+  };
+  gcd = gcd(numer,denomin);
+  simplifiedArr = [numer/gcd, denomin/gcd];
+  return simplifiedArr;
 }
