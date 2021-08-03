@@ -8,7 +8,7 @@ textAlign, CENTER, collideLineRect, deltaTime
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, spawnTime, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
 let line_points, simplifiedArr;
@@ -39,17 +39,12 @@ function setupGame() {
   
   //level select
   if (level == 1) {
-    numOfSugar = 200;
+    numSugarLimit = 200;
+    numOfSugar = 0;
   } //else if
   
   // Initialize objects
   sugars = [];
-  // for (let i = 0; i < numOfSugar; i++) {
-  //   sugarXcenter = random(290, 310);
-  //   sugars.push(new Sugar(sugarHeight, sugarXcenter));
-  //   sugarHeight -= 10;
-  // }
-  
   cups = []
   cups.push(new Cup("https://cdn.glitch.com/95c25cb1-e960-4da6-85bb-d5109d129e36%2Fmug-removebg-preview%20(1).png?v=1627998051536", 10, height-70, 80, 70))
 
@@ -61,25 +56,23 @@ function draw() {
   background(backgroundColor);
   fill(197, 48, 92);
   textSize(60);
+  strokeWeight(2);
   text("level 1", 425, 490);
   
   spawnTime -= deltaTime/1000;
-  if (spawnTime < 0 /*numsugar limit*/){
+  if (spawnTime < 0 && numOfSugar < numSugarLimit){
     sugarXcenter = random(290, 310);
     sugars.push(new Sugar(sugarHeight, sugarXcenter));
     spawnTime = random(0.5, 0.7);
+    numOfSugar++;
   }
   
   //if game is not over, then...
   for (let i = 0; i < sugars.length; i++) {    
     sugars[i].draw();
-    // if (!sugars[i].checkSugarLineCollision()){
-    //   sugars[i].fall();
-    // }
     //handle collision between sugar and lines
     sugars[i].checkSugarLineCollision();
-    sugars[i].fall();
-    
+    sugars[i].fall(); 
   }
   
   for (let i = 0; i < cups.length; i++) {
@@ -115,35 +108,33 @@ class Sugar {
     //if (!(lineCollide && cupCollide))
       this.x += this.xv;
       this.y += this.yv;
-    
-      
-      
-      this.yv = this.yv *0.9 + this.g;
-
-      this.xv = this.xv * 0.9 + random(-0.1, 0.1) ;
+      this.yv = this.yv * 0.99 + this.g;
+      this.xv = this.xv * 0.9 + random(-0.05, 0.05) ;
   }
   
   checkSugarLineCollision() {
-    
     for (let i = 0; i < line_points.length; i+= 4){
-      
       let hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
       
-      let changeX = (line_points[i+2] - line_points[i]);
-      let changeY = (line_points[i+3] - line_points[i+1]);
-      let length = Math.sqrt(changeX*changeX + changeY*changeY);
-      changeX = changeX/length;
-      changeY = (changeY/length);
       if (hitLineSquarecollision) {
+        let changeX = (line_points[i+2] - line_points[i]);
+        let changeY = (line_points[i+3] - line_points[i+1]);
+        
+        if (changeY < 0){
+          changeY *= -1;
+          changeX *= -1;
+        }
+        let length = Math.sqrt(changeX*changeX + changeY*changeY);
+        changeX = changeX/length;
+        changeY = (changeY/length);
         console.log("hit");
         this.xv = changeX;
         this.yv = changeY;
-        return true;
       }
     }
-    return false;
-    
   }
+  
+  
 }
 
 
@@ -176,21 +167,3 @@ function mousePressed(){
 
 }
 
-// function reduce(numer,denomin){
-//   var gcd = function gcd(a,b){
-//     return b ? gcd(b, a%b) : a;
-//   };
-//   gcd = gcd(numer,denomin);
-//   simplifiedArr = [numer/gcd, denomin/gcd];
-//   return simplifiedArr;
-
-
-    // reduce (round(changeY, 0), round(changeX, 0));
-      // console.log(round(changeY, 0), round(changeX, 0));
-      // if (hitLineSquarecollision) {
-      //   //this.x += changeX;
-      //   // this.y += changeY;
-      //   this.x += simplifiedArr[0];
-      //   this.y += simplifiedArr[1];
-      // }  
-// }
