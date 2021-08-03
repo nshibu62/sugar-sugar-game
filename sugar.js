@@ -41,6 +41,11 @@ function setupGame() {
   if (level == 1) {
     numSugarLimit = 200;
     numOfSugar = 0;
+    tableX = 0;
+    tableY = height -20;
+    tableWidth = width;
+    tableHeight = 20;
+    table1 = new Table(tableX, tableY, tableWidth, tableHeight);
   } //else if
   
   // Initialize objects
@@ -126,7 +131,7 @@ class Sugar {
         }
         let length = Math.sqrt(changeX*changeX + changeY*changeY);
         changeX = changeX/length;
-        changeY = (changeY/length);
+        changeY = changeY/length;
         console.log("hit");
         this.xv = changeX;
         this.yv = changeY;
