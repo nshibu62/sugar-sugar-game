@@ -1,7 +1,7 @@
 /* global createCanvas, colorMode, HSB, color, noStroke, fill, noFill, strokeWeight,
 background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random, createSlider
-mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image
+mouseIsPressed, mousePressed, priorX, priorY, collideCircleCircle,loadImage,image
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append, point
 */
 //Eban, Divita, Nisha
@@ -27,9 +27,10 @@ function draw() {
 
 function mousePressed(){
    stroke(0);
+  strokeWeight(5);
    //point(mouseX, mouseY);
-   line_points.push(mouseX, mouseY);
-  line_point.push(mouseY);
+   line_points.push(mouseX);
+    line_points.push(mouseY);
    console.log(line_points);
    console.log(line_points.length);
 
