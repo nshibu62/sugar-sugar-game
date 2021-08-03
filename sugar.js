@@ -20,25 +20,28 @@ function setup() {
 
 function draw() {
   background(backgroundColor);
-  lineDraw();
-  
 
+  for (let i = 0; i < line_points.length; i+= 4){
+    line(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3]);
+  }
 }
 
-function lineDraw(){
+function mousePressed(){
   stroke(10);
-  fill(50);
+  fill(255);
   
-  if (mousePressed){
-    line_points.push(mouseX);
-    line_points.push(mouseY);
-    console.log(line_points);
-    console.log(line_points.length);
+  line_points.push(mouseX);
+  line_points.push(mouseY);
+  console.log(line_points);
+  console.log(line_points.length);
 
-    if(line_points.length === 4){
-      line(line_points[0],line_points[1],line_points[2],line_points[3]);
-      line_points = [];
-    }
-   }
+  // if(line_points.length === 4){
+  //   line(line_points[0],line_points[1],line_points[2],line_points[3]);
+  //   //line_points = [];
+  // }
+  // // if(line_points.length === 6){
+  // //   line(line_points[0],line_points[1],line_points[2],line_points[3]);
+  // //   line_points = [line_points[4], line_points[5]];
+  // // }
   
 }
