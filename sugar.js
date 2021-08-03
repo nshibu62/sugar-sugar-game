@@ -117,9 +117,11 @@ class Sugar {
       
       hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
       
-      let changeX = 5;
+      let changeX = (line_points[i+2] - line_points[i]);
+      let changeY = (line_points[i+3] - line_points[i+1]);
       if (hitLineSquarecollision) {
-
+        this.x += changeX;
+        this.y += changeY;
       }  
     }
     
