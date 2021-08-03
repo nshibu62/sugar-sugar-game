@@ -3,12 +3,12 @@ background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random, createSlider, square
 mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image, round
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
-textAlign, CENTER, collideLineRect
+textAlign, CENTER, collideLineRect, deltaTime
 */
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, spawnTime, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
 let line_points, simplifiedArr;
@@ -35,6 +35,7 @@ function setup() {
 function setupGame() {
   // Initialize values
   sugarHeight = 0;
+  spawnTime = 0;
   
   //level select
   if (level == 1) {
@@ -43,11 +44,11 @@ function setupGame() {
   
   // Initialize objects
   sugars = [];
-  for (let i = 0; i < numOfSugar; i++) {
-    sugarXcenter = random(290, 310);
-    sugars.push(new Sugar(sugarHeight, sugarXcenter));
-    sugarHeight -= 10;
-  }
+  // for (let i = 0; i < numOfSugar; i++) {
+  //   sugarXcenter = random(290, 310);
+  //   sugars.push(new Sugar(sugarHeight, sugarXcenter));
+  //   sugarHeight -= 10;
+  // }
   
   cups = []
   cups.push(new Cup("https://cdn.glitch.com/95c25cb1-e960-4da6-85bb-d5109d129e36%2Fmug-removebg-preview%20(1).png?v=1627998051536", 10, height-70, 80, 70))
@@ -62,6 +63,13 @@ function draw() {
   textSize(60);
   text("level 1", 425, 490);
   
+  spawnTime -= deltaTime/1000;
+  if (spawnTime < 0 /*numsugar limit*/){
+    sugarXcenter = random(290, 310);
+    sugars.push(new Sugar(sugarHeight, sugarXcenter));
+    spawnTime = random(0.5, 0.7);
+  }
+  
   //if game is not over, then...
   for (let i = 0; i < sugars.length; i++) {    
     sugars[i].draw();
@@ -73,12 +81,12 @@ function draw() {
     sugars[i].fall();
     
   }
+  
   for (let i = 0; i < cups.length; i++) {
     cups[i].draw()
   }
   
   //draw lines created on canvas
-
   for (let i = 0; i < line_points.length; i+= 4){
     stroke(197, 48, 92);
     strokeWeight(4);
@@ -109,12 +117,9 @@ class Sugar {
       this.y += this.yv;
     
       
-      if (this.yv < 0.3) {
-        this.yv += this.g;
-      }
-      // if (this.x > sugarXcenter + 5 || this.x < sugarXcenter - 5){
-      //   this.xv = this.xv * -1;
-      // }
+      
+      this.yv = this.yv *0.9 + this.g;
+
       this.xv = this.xv * 0.9 + random(-0.1, 0.1) ;
   }
   
