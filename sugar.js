@@ -11,7 +11,7 @@ textAlign, CENTER, collideLineRect
 let backgroundColor, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
-let line_points, hitLineSquarecollision, simplifiedArr;
+let line_points, simplifiedArr;
 
 //Eban's global variables
 let sugarLeft, cups;
@@ -65,9 +65,11 @@ function draw() {
   //if game is not over, then...
   for (let i = 0; i < sugars.length; i++) {    
     sugars[i].draw();
-    sugars[i].fall();
+    if (!sugars[i].checkSugarLineCollision()){
+      sugars[i].fall();
+    }
     //handle collision between sugar and lines
-    sugars[i].checkSugarLineCollision();
+    //sugars[i].checkSugarLineCollision();
   }
   for (let i = 0; i < cups.length; i++) {
     cups[i].draw()
@@ -92,6 +94,8 @@ class Sugar {
     this.yv = random(0.1, 0.2);
     this.xv = random(-0.1, 0.1);
     this.g = 0.005;
+    this.vx = sugarXcenter;
+    this.vy = sugarHeight;
   }
   
   draw() {
@@ -101,33 +105,43 @@ class Sugar {
   }
   fall() {
     //if (!(lineCollide && cupCollide))
-    if (!(hitLineSquarecollision)){
-    this.x += this.xv;
-    this.y += this.yv;
-    if (this.yv < 0.3) {
-      this.yv += this.g;
-    }
-    if (this.x > sugarXcenter + 5 || this.x < sugarXcenter - 5){
-      this.xv = this.xv * -1;
-    }
+      this.x += this.xv;
+      this.y += this.yv;
+    
+      this.vx += this.xv;
+      this.vy += this.yv;
+      
+      if (this.yv < 0.3) {
+        this.yv += this.g;
+        this.vy += this.g;
+      }
+      if (this.x > sugarXcenter + 5 || this.x < sugarXcenter - 5){
+        this.xv = this.xv * -1;
+        this.vx = this.vx * -1'
+      }
+    
+      
   }
   
   checkSugarLineCollision() {
     
     for (let i = 0; i < line_points.length; i+= 4){
       
-      hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
+      let hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
       
       let changeX = (line_points[i+2] - line_points[i]);
       let changeY = (line_points[i+3] - line_points[i+1]);
       let length = Math.sqrt(changeX*changeX + changeY*changeY);
       changeX = changeX/length;
-      changeY = changeY/length;
+      changeY = (changeY/length);
       if (hitLineSquarecollision) {
-        this.x += changeX;
-        this.y += changeY;
+        console.log("hit");
+        this.vx += changeX;
+        this.vy += changeY;
+        return true;
       }
     }
+    return false;
     
   }
 }
