@@ -3,7 +3,7 @@ background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random, createSlider, square
 mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
-textAlign, CENTER
+textAlign, CENTER, collideLineRect
 */
 //Eban, Divita, Nisha
 
@@ -74,10 +74,13 @@ function draw() {
   //draw lines created on canvas
 
   for (let i = 0; i < line_points.length; i+= 4){
-    stroke(15);
-    fill(197, 48, 92);
+    stroke(197, 48, 92);
+    strokeWeight(4);
     line(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3]);
   }
+  
+  //handle collision between sugar and lines
+  sugars[i].checkSugarLineCollision();
   
 }
 
@@ -111,9 +114,11 @@ class Sugar {
   checkSugarLineCollision() {
     
     for (let i = 0; i < line_points.length; i+= 4){
-    
-    //hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], 200, 300, 100, 150);
-  }
+    hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
+      
+    textSize(32);
+    text("word", 10, 30);
+    }
     
   }
 }
