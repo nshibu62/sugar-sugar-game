@@ -114,10 +114,13 @@ class Sugar {
   checkSugarLineCollision() {
     
     for (let i = 0; i < line_points.length; i+= 4){
-    hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
       
-    textSize(32);
-    text(`hit: ${hitLineSquarecollision}`, width/2, 20);
+      hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
+      
+      let changeX = 5;
+      if (hitLineSquarecollision) {
+
+      }  
     }
     
   }
