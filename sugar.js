@@ -20,21 +20,25 @@ function setup() {
 
 function draw() {
   background(backgroundColor);
-
+  lineDraw();
   
 
 }
 
-function mousePressed(){
-   stroke(0);
-   line_points.push(mouseX);
+function lineDraw(){
+  stroke(10);
+  fill(50);
+  
+  if (mousePressed){
+    line_points.push(mouseX);
     line_points.push(mouseY);
-   console.log(line_points);
-   console.log(line_points.length);
+    console.log(line_points);
+    console.log(line_points.length);
 
     if(line_points.length === 4){
-        line(line_points[0],line_points[1],line_points[2],line_points[3]);
-        line_points = [];
+      line(line_points[0],line_points[1],line_points[2],line_points[3]);
+      line_points = [];
     }
+   }
   
 }
