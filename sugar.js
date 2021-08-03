@@ -66,6 +66,8 @@ function draw() {
   for (let i = 0; i < sugars.length; i++) {    
     sugars[i].draw();
     sugars[i].fall();
+    //handle collision between sugar and lines
+    sugars[i].checkSugarLineCollision();
   }
   for (let i = 0; i < cups.length; i++) {
     cups[i].draw()
@@ -79,8 +81,6 @@ function draw() {
     line(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3]);
   }
   
-  //handle collision between sugar and lines
-  sugars[i].checkSugarLineCollision();
   
 }
 
@@ -117,7 +117,7 @@ class Sugar {
     hitLineSquarecollision = collideLineRect(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3], this.x, this.y, this.size, this.size);
       
     textSize(32);
-    text("word", 10, 30);
+    text(`hit: ${hitLineSquarecollision}`, width/2, 20);
     }
     
   }
