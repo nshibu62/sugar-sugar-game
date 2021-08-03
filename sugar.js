@@ -3,12 +3,12 @@ background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random, createSlider, square
 mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image, round
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
-textAlign, CENTER, collideLineRect, deltaTime
+textAlign, CENTER, collideLineRect, collideRectRect, deltaTime
 */
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, table1, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
 let line_points, simplifiedArr;
@@ -51,7 +51,7 @@ function setupGame() {
   // Initialize objects
   sugars = [];
   cups = []
-  cups.push(new Cup("https://cdn.glitch.com/95c25cb1-e960-4da6-85bb-d5109d129e36%2Fmug-removebg-preview%20(1).png?v=1627998051536", 10, height-70, 80, 70))
+  cups.push(new Cup("https://cdn.glitch.com/95c25cb1-e960-4da6-85bb-d5109d129e36%2Fmug-removebg-preview%20(1).png?v=1627998051536", 10, height-90, 80, 70))
 
 
 }
@@ -62,7 +62,7 @@ function draw() {
   fill(197, 48, 92);
   textSize(60);
   strokeWeight(2);
-  text("level 1", 425, 490);
+  text("level 1", 450, 480);
   
   spawnTime -= deltaTime/1000;
   if (spawnTime < 0 && numOfSugar < numSugarLimit){
@@ -75,6 +75,10 @@ function draw() {
   //if game is not over, then...
   for (let i = 0; i < sugars.length; i++) {    
     sugars[i].draw();
+    
+    //handle collision between table and lines
+    sugars[i].checkTableCollision();
+    
     //handle collision between sugar and lines
     sugars[i].checkSugarLineCollision();
     sugars[i].fall(); 
@@ -83,6 +87,8 @@ function draw() {
   for (let i = 0; i < cups.length; i++) {
     cups[i].draw()
   }
+  table1.draw();
+
   
   //draw lines created on canvas
   for (let i = 0; i < line_points.length; i+= 4){
@@ -109,12 +115,25 @@ class Sugar {
     fill(360, 0, 100);
     square(this.x, this.y, this.size);
   }
+  
+  checkTableCollision() {
+    tableCollision = collideRectRect(this.x, this.y, this.size, this.size, tableX, tableY, tableWidth, tableHeight);
+    if (tableCollision){
+      this.yv = 0;
+      this.xv = 0;
+      this.y = height - tableHeight - this.size;
+      this.g = 0;
+    }
+  }
+  
   fall() {
     //if (!(lineCollide && cupCollide))
+    if(!(tableCollision)){
       this.x += this.xv;
       this.y += this.yv;
       this.yv = this.yv * 0.99 + this.g;
       this.xv = this.xv * 0.9 + random(-0.05, 0.05) ;
+    }
   }
   
   checkSugarLineCollision() {
@@ -172,3 +191,17 @@ function mousePressed(){
 
 }
 
+
+class Table {
+  constructor(tableX, tableY, tableWidth, tableHeight) {
+    this.x = tableX;
+    this.y = tableY;
+    this.width = tableWidth;
+    this.height = tableHeight;
+  }
+  
+  draw (){
+    fill(197, 48, 92);
+    rect(this.x, this.y, this.width, this.height);
+  }
+}
