@@ -35,13 +35,4 @@ function mousePressed(){
   console.log(line_points);
   console.log(line_points.length);
 
-  // if(line_points.length === 4){
-  //   line(line_points[0],line_points[1],line_points[2],line_points[3]);
-  //   //line_points = [];
-  // }
-  // // if(line_points.length === 6){
-  // //   line(line_points[0],line_points[1],line_points[2],line_points[3]);
-  // //   line_points = [line_points[4], line_points[5]];
-  // // }
-  
 }
