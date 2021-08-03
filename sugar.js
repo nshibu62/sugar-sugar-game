@@ -65,11 +65,13 @@ function draw() {
   //if game is not over, then...
   for (let i = 0; i < sugars.length; i++) {    
     sugars[i].draw();
-    if (!sugars[i].checkSugarLineCollision()){
-      sugars[i].fall();
-    }
+    // if (!sugars[i].checkSugarLineCollision()){
+    //   sugars[i].fall();
+    // }
     //handle collision between sugar and lines
-    //sugars[i].checkSugarLineCollision();
+    sugars[i].checkSugarLineCollision();
+    sugars[i].fall();
+    
   }
   for (let i = 0; i < cups.length; i++) {
     cups[i].draw()
@@ -94,8 +96,6 @@ class Sugar {
     this.yv = random(0.1, 0.2);
     this.xv = random(-0.1, 0.1);
     this.g = 0.005;
-    this.vx = sugarXcenter;
-    this.vy = sugarHeight;
   }
   
   draw() {
@@ -108,19 +108,14 @@ class Sugar {
       this.x += this.xv;
       this.y += this.yv;
     
-      this.vx += this.xv;
-      this.vy += this.yv;
       
       if (this.yv < 0.3) {
         this.yv += this.g;
-        this.vy += this.g;
       }
-      if (this.x > sugarXcenter + 5 || this.x < sugarXcenter - 5){
-        this.xv = this.xv * -1;
-        this.vx = this.vx * -1'
-      }
-    
-      
+      // if (this.x > sugarXcenter + 5 || this.x < sugarXcenter - 5){
+      //   this.xv = this.xv * -1;
+      // }
+      this.xv = this.xv * 0.9 + random(-0.1, 0.1) ;
   }
   
   checkSugarLineCollision() {
@@ -136,8 +131,8 @@ class Sugar {
       changeY = (changeY/length);
       if (hitLineSquarecollision) {
         console.log("hit");
-        this.vx += changeX;
-        this.vy += changeY;
+        this.xv = changeX;
+        this.yv = changeY;
         return true;
       }
     }
