@@ -32,11 +32,23 @@ function setup() {
   
   //if level 2 button clicked:
   //level = 2;
-    
+  
+  //reset button
+  resetButton = new Clickable();
+  resetButton.locate(535, 20);
+  resetButton.width = 50;
+  resetButton.height = 15;
+  resetButton.stroke = "#FFFFFF";
+  resetButton.color = "#FFFFFF"; 
+  resetButton.text = "RESET";
+  resetButton.textColor = "#04446B";
+  resetButton.onPress = function(){
+    setupGame();
+  }
+  
   //Set up initial values and initialize objects
   setupGame();
-  line_points = [];
-  sugarsAlreadyCaught = []
+
 }
 
 function setupGame() {
@@ -46,15 +58,9 @@ function setupGame() {
   tableCollision = false;
   gameIsOver = false;
   
-  resetButton = new Clickable();
-  resetButton.locate(550, 20);
-  resetButton.width = 40;
-  resetButton.height = 15;
-  resetButton.text = "Reset";
-  resetButton.textColor = "#000000";
-  resetButton.onPress = function(){
-    setupGame();
-  }
+  //initialize objects
+  line_points = [];
+  sugarsAlreadyCaught = []
   
   //level select
   if (level == 1) {
