@@ -9,7 +9,7 @@ textStyle, BOLD,
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, resetButton, lev1pressed, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, resetButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
 let line_points, dist1;
@@ -21,18 +21,15 @@ function setup() {
   createCanvas(600, 500);
   colorMode(HSB, 360, 100, 100);
   backgroundColor = color(203, 96, 42);
-  lev1pressed = false;
   
   //level 0 - main screen
   //300, 67, 42 --> dark purple
   //300, 61, 100 --> light pink
-  level = 0;
+  //level = 0;
+  
   
   //if level 1 button clicked:
-  //level = 1;
-  if (lev1pressed){
-    level = 1;
-  }
+  level = 1;
 
   
   //if level 2 button clicked:
@@ -158,7 +155,6 @@ function draw() {
     textSize(24);
     text(`You Completed the Level! \n Only took you ${length} pixels of line.`, 300, 175);
   }
-  
 }
 
 class Sugar {
@@ -318,7 +314,7 @@ function showMainScreen() {
 
     
   lev1Button.onPress = function(){
-    lev1pressed = true;
+    level = 1;
   }
 }
 
