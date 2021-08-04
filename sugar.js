@@ -8,13 +8,13 @@ textAlign, CENTER, collideLineRect, collideRectRect, deltaTime
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, table1, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, table1, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
 let line_points;
 
 //Eban's global variables
-let sugarLeft, cups;
+let sugarLeft, cups, sugarsAlreadyCaught;
 
 function setup() {
   createCanvas(600, 500);
@@ -30,6 +30,7 @@ function setup() {
   //Set up initial values and initialize objects
   setupGame();
   line_points = [];
+  sugarsAlreadyCaught = []
 }
 
 function setupGame() {
@@ -41,17 +42,24 @@ function setupGame() {
   if (level == 1) {
     numSugarLimit = 200;
     numOfSugar = 0;
+    sugarLeft = 100;
     tableX = 0;
     tableY = height -20;
     tableWidth = width;
     tableHeight = 20;
     table1 = new Table(tableX, tableY, tableWidth, tableHeight);
+    tableX = 100;
+    tableY = 200;
+    tableWidth = 300;
+    tableHeight = 20;
+    table2 = new Table(tableX, tableY, tableWidth, tableHeight);
+
   } //else if
   
   // Initialize objects
   sugars = [];
   cups = []
-  cups.push(new Cup("https://cdn.glitch.com/95c25cb1-e960-4da6-85bb-d5109d129e36%2Fmug-removebg-preview%20(1).png?v=1627998051536", 10, height-90, 80, 70))
+  cups.push(new Cup(10, height-90, 80, 70))
 
 
 }
@@ -88,6 +96,7 @@ function draw() {
     cups[i].draw()
   }
   table1.draw();
+  table2.draw();
 
   
   //draw lines created on canvas
@@ -163,9 +172,8 @@ class Sugar {
 
 
 class Cup {
-  constructor(imgLink, x, y, w, h) {
-    this.img = loadImage(imgLink)
-    sugarLeft = numOfSugar
+  constructor(x, y, w, h) {
+    this.img = loadImage("https://cdn.glitch.com/95c25cb1-e960-4da6-85bb-d5109d129e36%2Fmug-removebg-preview%20(1).png?v=1627998051536")
     // top left corner of the cup image
     this.x = x
     this.y = y
@@ -203,5 +211,20 @@ class Table {
   draw (){
     fill(197, 48, 92);
     rect(this.x, this.y, this.width, this.height);
+  }
+}
+
+
+function collideSugarCup() {
+  let hit;
+  for (let cup of cups) {
+    for (let sugar of sugars) {
+      hit = collideRectRect(cup.x, cup.y, cup.w*0.75, 30,
+        sugar.x, sugar.y, sugar.size, sugar.size)
+      if (hit && sugarLeft > 0 && sugarsAlreadyCaught.indexOf(sugar) == -1) {
+        sugarLeft--;
+        sugarsAlreadyCaught.push(sugar);
+      }
+    }
   }
 }
