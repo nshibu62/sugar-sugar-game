@@ -11,7 +11,7 @@ textAlign, CENTER, collideLineRect, collideRectRect, deltaTime
 let backgroundColor, table1, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
-let line_points, simplifiedArr;
+let line_points;
 
 //Eban's global variables
 let sugarLeft, cups;
