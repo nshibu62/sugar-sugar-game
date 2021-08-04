@@ -3,8 +3,8 @@ background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random, createSlider, square
 mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image, round
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
-textAlign, CENTER, collideLineRect, collideRectRect, deltaTime, sqrt
-textStyle, BOLD, Clickable, locate, text, textColor, onPress
+textAlign, CENTER, Clickable, collideLineRect, collideRectRect, deltaTime, sqrt
+textStyle, BOLD,
 */
 //Eban, Divita, Nisha
 
@@ -47,14 +47,14 @@ function setupGame() {
   gameIsOver = false;
   
   resetButton = new Clickable();
-  // resetButton.locate(550, 20);
-  // resetButton.width = 250;
-  // resetButton.height = 100;
-  // resetButton.text = "Reset";
-  // resetButton.textColor = "#000000";
-  // resetButton.onPress = function(){
-  //   setupGame();
-  // }
+  resetButton.locate(550, 20);
+  resetButton.width = 40;
+  resetButton.height = 15;
+  resetButton.text = "Reset";
+  resetButton.textColor = "#000000";
+  resetButton.onPress = function(){
+    setupGame();
+  }
   
   //level select
   if (level == 1) {
@@ -91,7 +91,7 @@ function draw() {
   }
   
   background(backgroundColor);
-  //resetButton.draw();
+  resetButton.draw();
 
   spawnTime -= deltaTime/1000;
   if (spawnTime < 0 && numOfSugar < numSugarLimit){
