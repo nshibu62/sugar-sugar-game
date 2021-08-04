@@ -3,7 +3,7 @@ background, ellipse, text, stroke, line, globalS, globalB
 width, height, mouseX, mouseY, rect, ellipse, random, createSlider, square
 mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image, round
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
-textAlign, CENTER, collideLineRect, collideRectRect, deltaTime
+textAlign, CENTER, collideLineRect, collideRectRect, deltaTime, sqrt
 */
 //Eban, Divita, Nisha
 
@@ -11,7 +11,7 @@ textAlign, CENTER, collideLineRect, collideRectRect, deltaTime
 let backgroundColor, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
-let line_points, sumLength;
+let line_points, sumLength, dist1;
 
 //Eban's global variables
 let sugarLeft, cups, sugarsAlreadyCaught;
@@ -21,6 +21,8 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   backgroundColor = color(203, 96, 42);
 
+  
+  
   //if level 1 button clicked:
   level = 1;
   
@@ -39,6 +41,7 @@ function setupGame() {
   spawnTime = 0;
   tableCollision = false;
   gameIsOver = false;
+  sumLength = 0;
   
   //level select
   if (level == 1) {
@@ -70,10 +73,7 @@ function setupGame() {
 
 function draw() {
   background(backgroundColor);
-  fill(197, 48, 92);
-  textSize(60);
-  strokeWeight(2);
-  text("level 1", 450, 480);
+
   
   spawnTime -= deltaTime/1000;
   if (spawnTime < 0 && numOfSugar < numSugarLimit){
@@ -88,6 +88,11 @@ function draw() {
   }
   
   if (!gameIsOver) {
+    fill(197, 48, 92);
+    textSize(60);
+    strokeWeight(2);
+    text("level 1", 450, 480);
+    
     for (let i = 0; i < sugars.length; i++) {    
       sugars[i].draw();
 
@@ -113,7 +118,15 @@ function draw() {
       stroke(197, 48, 92);
       strokeWeight(4);
       line(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3]);
-    }
+      
+      dist1 = round(computeDistance(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3])); 
+      sumLen
+    } 
+  } else {
+    fill(197, 48, 92);
+    rect(150, 125, 250, 80);
+    fill(backgroundColor);
+    text(`You Completed the Level! Only took you ${sumLength} pixels of line.`, 150, 125);
   }
   
 }
@@ -208,6 +221,13 @@ function mousePressed(){
 
 }
 
+//compute distance of line
+  function computeDistance(point1x, point1y,point2x,point2y) {
+  let answer = sqrt((point2x-point1x)**2 + (point2y-point1y)**2);
+  return answer
+}
+
+
 
 class Table {
   constructor(tableX, tableY, tableWidth, tableHeight) {
@@ -228,7 +248,7 @@ function collideSugarCup() {
   let hit;
   for (let cup of cups) {
     for (let sugar of sugars) {
-      hit = collideRectRect(cup.x, cup.y, cup.w*0.65, 30,
+      hit = collideRectRect(cup.x, cup.y, cup.w*0.65, 10,
         sugar.x, sugar.y, sugar.size, sugar.size)
       if (hit && sugarLeft > 0 && sugarsAlreadyCaught.indexOf(sugar) == -1) {
         sugarLeft--;
