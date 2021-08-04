@@ -4,12 +4,12 @@ width, height, mouseX, mouseY, rect, ellipse, random, createSlider, square
 mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image, round
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
 textAlign, CENTER, collideLineRect, collideRectRect, deltaTime, sqrt
-textStyle, BOLD
+textStyle, BOLD, Clickable
 */
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, resetButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
 let line_points, dist1;
@@ -28,6 +28,7 @@ function setup() {
   
   //if level 1 button clicked:
   level = 1;
+  resetButton = new Clickable(580, 10);
   
   //if level 2 button clicked:
   //level = 2;
@@ -44,7 +45,6 @@ function setupGame() {
   spawnTime = 0;
   tableCollision = false;
   gameIsOver = false;
-  sumLength = 0;
   
   //level select
   if (level == 1) {
@@ -98,7 +98,7 @@ function draw() {
     fill(197, 48, 92);
     textSize(60);
     strokeWeight(2);
-    text("level 1", 450, 480);
+    text(`level ${level}`, 450, 480);
     
     for (let i = 0; i < sugars.length; i++) {    
       sugars[i].draw();
@@ -283,6 +283,14 @@ function showMainScreen() {
   textAlign(CENTER);
   textStyle(BOLD);
   text("sugar, sugar", width/2, height/3);
+  
+  // https://github.com/Lartu/p5.clickable
+  let playButton = new Clickable();
+  playButton.locate(100,100)
+  playButton.resize(100, 100)
+  playButton.text = "Play";       //Text of the clickable (string)
+  playButton.textColor = "#000000";   //Color of the text (hex number as a string)
+
 }
 
 //compute distance of line
