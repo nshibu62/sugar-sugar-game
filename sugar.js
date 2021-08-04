@@ -4,6 +4,7 @@ width, height, mouseX, mouseY, rect, ellipse, random, createSlider, square
 mouseIsPressed, priorX, priorY, collideCircleCircle,loadImage,image, round
 keyCode, UP_ARROW, textSize, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, consol, collideRectCircle, append
 textAlign, CENTER, collideLineRect, collideRectRect, deltaTime, sqrt
+textStyle, BOLD
 */
 //Eban, Divita, Nisha
 
@@ -11,7 +12,7 @@ textAlign, CENTER, collideLineRect, collideRectRect, deltaTime, sqrt
 let backgroundColor, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
-let line_points, sumLength, dist1;
+let line_points, dist1;
 
 //Eban's global variables
 let sugarLeft, cups, sugarsAlreadyCaught;
@@ -74,9 +75,13 @@ function setupGame() {
 
 
 function draw() {
+    if (level == 0) {
+    showMainScreen();
+    return;
+  }
+  
   background(backgroundColor);
 
-  
   spawnTime -= deltaTime/1000;
   if (spawnTime < 0 && numOfSugar < numSugarLimit){
     sugarXcenter = random(290, 310);
@@ -123,14 +128,12 @@ function draw() {
   
     } 
   } else {
-    
-    dist1 = round(computeDistance(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3])); 
-    sumLength += dist1;
+    let length = calculateSumLength();
     fill(197, 48, 92);
     rect(100, 100, 400, 200);
     fill(0, 0, 100);
     textSize(24);
-    text(`You Completed the Level! \n Only took you ${sumLength} pixels of line.`, 300, 175);
+    text(`You Completed the Level! \n Only took you ${length} pixels of line.`, 300, 175);
   }
   
 }
@@ -225,13 +228,6 @@ function mousePressed(){
 
 }
 
-//compute distance of line
-  function computeDistance(point1x, point1y,point2x,point2y) {
-    let answer = sqrt((point2x-point1x)**2 + (point2y-point1y)**2);
-    return answer
-}
-
-
 
 class Table {
   constructor(tableX, tableY, tableWidth, tableHeight) {
@@ -281,6 +277,25 @@ function showMainScreen() {
   //300, 67, 42 --> dark purple
   //300, 61, 100 --> light pink
   background(300, 67, 42);
-  fill(300, 61, 100)
   
+  fill(300, 61, 100);
+  textSize(36);
+  textAlign(CENTER);
+  textStyle(BOLD);
+  text("sugar, sugar", width/2, height/3);
+}
+
+//compute distance of line
+  function computeDistance(point1x, point1y,point2x,point2y) {
+    let answer = sqrt((point2x-point1x)**2 + (point2y-point1y)**2);
+    return answer
+}
+
+function calculateSumLength (){
+  let sumLength = 0;
+  for (let i = 0; i < line_points.length; i+= 4){
+    dist1 = round(computeDistance(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3])); 
+    sumLength += dist1;
+  }
+  return sumLength;
 }
