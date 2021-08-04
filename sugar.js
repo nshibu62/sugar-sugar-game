@@ -9,25 +9,30 @@ textStyle, BOLD,
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, resetButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, resetButton, lev1pressed, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
 let line_points, dist1;
 
 //Eban's global variables
-let sugarLeft, cups, sugarsAlreadyCaught;
+let sugarLeft, cups, sugarsAlreadyCaught, lev1Button;
 
 function setup() {
   createCanvas(600, 500);
   colorMode(HSB, 360, 100, 100);
   backgroundColor = color(203, 96, 42);
-
+  lev1pressed = false;
+  
   //level 0 - main screen
   //300, 67, 42 --> dark purple
   //300, 61, 100 --> light pink
+  level = 0;
   
   //if level 1 button clicked:
-  level = 1;
+  //level = 1;
+  if (lev1pressed){
+    level = 1;
+  }
 
   
   //if level 2 button clicked:
@@ -91,8 +96,9 @@ function setupGame() {
 
 
 function draw() {
-    if (level == 0) {
+  if (level == 0) {
     showMainScreen();
+    lev1Button.draw();
     return;
   }
   
@@ -292,22 +298,28 @@ function drawTable2() {
 function showMainScreen() {
   //level 0 - main screen
   //300, 67, 42 --> dark purple
-  //300, 61, 100 --> light pink
+  //323, 60, 100 --> light pink
   background(300, 67, 42);
   
-  fill(300, 61, 100);
-  textSize(36);
+  fill(323, 60, 100);
+  textSize(60);
   textAlign(CENTER);
   textStyle(BOLD);
-  text("sugar, sugar", width/2, height/3);
+  text("sugar, sugar", width/2, height/2.5);
   
-  // https://github.com/Lartu/p5.clickable
-  let playButton = new Clickable();
-  playButton.locate(100,100)
-  playButton.resize(100, 100)
-  playButton.text = "Play";       //Text of the clickable (string)
-  playButton.textColor = "#000000";   //Color of the text (hex number as a string)
+  lev1Button = new Clickable();
+  lev1Button.color = "#FF66C4";  
+  lev1Button.stroke = "#FF66C4"; 
+  lev1Button.locate(275, 250);
+  lev1Button.resize(50, 50);
+  lev1Button.textSize = 35;
+  lev1Button.text = "1";      
+  lev1Button.textColor = "#FFFFFF";   
 
+    
+  lev1Button.onPress = function(){
+    lev1pressed = true;
+  }
 }
 
 //compute distance of line
