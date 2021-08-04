@@ -8,10 +8,10 @@ textAlign, CENTER, collideLineRect, collideRectRect, deltaTime
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
-let line_points;
+let line_points, sumLength;
 
 //Eban's global variables
 let sugarLeft, cups, sugarsAlreadyCaught;
@@ -38,6 +38,7 @@ function setupGame() {
   sugarHeight = 0;
   spawnTime = 0;
   tableCollision = false;
+  gameIsOver = false;
   
   //level select
   if (level == 1) {
@@ -49,6 +50,13 @@ function setupGame() {
     tableWidth = width;
     tableHeight = 20;
     table1 = new Table(tableX, tableY, tableWidth, tableHeight);
+    
+    // tableX = 150;
+    // tableY = 125;
+    // tableWidth = 200;
+    // tableHeight = 20;
+    // table2 = new Table(tableX, tableY, tableWidth, tableHeight);
+    
   } //else if
   
   // Initialize objects
@@ -75,32 +83,38 @@ function draw() {
     numOfSugar++;
   }
   
-  //if game is not over, then...
-  for (let i = 0; i < sugars.length; i++) {    
-    sugars[i].draw();
-    
-    //handle collision between table and lines
-    sugars[i].checkTableCollision();
-    
-    //handle collision between sugar and lines
-    sugars[i].checkSugarLineCollision();
-    sugars[i].fall(); 
+  if (sugarLeft == 0){
+    gameIsOver = true;
   }
   
-  for (let i = 0; i < cups.length; i++) {
-    cups[i].draw()
-  }
-  table1.draw();
-  drawTable2();
+  if (!gameIsOver) {
+    for (let i = 0; i < sugars.length; i++) {    
+      sugars[i].draw();
 
-  
-  //draw lines created on canvas
-  for (let i = 0; i < line_points.length; i+= 4){
-    stroke(197, 48, 92);
-    strokeWeight(4);
-    line(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3]);
+      //handle collision between table and sugar
+      sugars[i].checkTableCollision(477);
+
+      //handle collision between sugar and lines
+      sugars[i].checkSugarLineCollision();
+      sugars[i].fall(); 
+    }
+
+    for (let i = 0; i < cups.length; i++) {
+      cups[i].draw()
+    }
+    table1.draw();
+    drawTable2();
+    //table2.draw();
+    collideSugarCup();
+
+
+    //draw lines created on canvas
+    for (let i = 0; i < line_points.length; i+= 4){
+      stroke(197, 48, 92);
+      strokeWeight(4);
+      line(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3]);
+    }
   }
-  
   
 }
 
@@ -120,12 +134,12 @@ class Sugar {
     square(this.x, this.y, this.size);
   }
   
-  checkTableCollision() {
+  checkTableCollision(heightAssign) {
     tableCollision = collideRectRect(this.x, this.y, this.size, this.size, tableX, tableY, tableWidth, tableHeight);
     if (tableCollision){
       this.yv = 0;
       this.xv = 0;
-      this.y = height - tableHeight - this.size;
+      this.y = heightAssign;
       this.g = 0;
     }
   }
@@ -214,7 +228,7 @@ function collideSugarCup() {
   let hit;
   for (let cup of cups) {
     for (let sugar of sugars) {
-      hit = collideRectRect(cup.x, cup.y, cup.w*0.75, 30,
+      hit = collideRectRect(cup.x, cup.y, cup.w*0.65, 30,
         sugar.x, sugar.y, sugar.size, sugar.size)
       if (hit && sugarLeft > 0 && sugarsAlreadyCaught.indexOf(sugar) == -1) {
         sugarLeft--;
