@@ -21,7 +21,9 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   backgroundColor = color(203, 96, 42);
 
-  
+  //level 0 - main screen
+  //300, 67, 42 --> dark purple
+  //300, 61, 100 --> light pink
   
   //if level 1 button clicked:
   level = 1;
@@ -118,15 +120,17 @@ function draw() {
       stroke(197, 48, 92);
       strokeWeight(4);
       line(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3]);
-      
-      dist1 = round(computeDistance(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3])); 
-      sumLen
+  
     } 
   } else {
+    
+    dist1 = round(computeDistance(line_points[i],line_points[i+1],line_points[i+2],line_points[i+3])); 
+    sumLength += dist1;
     fill(197, 48, 92);
-    rect(150, 125, 250, 80);
-    fill(backgroundColor);
-    text(`You Completed the Level! Only took you ${sumLength} pixels of line.`, 150, 125);
+    rect(100, 100, 400, 200);
+    fill(0, 0, 100);
+    textSize(24);
+    text(`You Completed the Level! \n Only took you ${sumLength} pixels of line.`, 300, 175);
   }
   
 }
@@ -223,8 +227,8 @@ function mousePressed(){
 
 //compute distance of line
   function computeDistance(point1x, point1y,point2x,point2y) {
-  let answer = sqrt((point2x-point1x)**2 + (point2y-point1y)**2);
-  return answer
+    let answer = sqrt((point2x-point1x)**2 + (point2y-point1y)**2);
+    return answer
 }
 
 
@@ -270,4 +274,13 @@ function drawTable2() {
         sugar.g = 0;
     }
   }
+}
+
+function showMainScreen() {
+  //level 0 - main screen
+  //300, 67, 42 --> dark purple
+  //300, 61, 100 --> light pink
+  background(300, 67, 42);
+  fill(300, 61, 100)
+  
 }
