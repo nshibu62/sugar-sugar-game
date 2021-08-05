@@ -22,15 +22,11 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   backgroundColor = color(203, 96, 42);
   
-  //level 0 - main screen
-  //300, 67, 42 --> dark purple
-  //300, 61, 100 --> light pink
-  //level = 0;
+  level = 0;
   
   
   //if level 1 button clicked:
-  level = 1;
-
+  //level = 1;
   
   //if level 2 button clicked:
   //level = 2;
@@ -53,7 +49,17 @@ function setup() {
 
 }
 
-function setupGame() {
+function setupGame() {  
+  if (level == 0) {
+    showMainScreen();
+    lev1Button.draw();
+    return;
+  }
+  lev1Button.onPress = function(){
+    level = 1;
+  }
+
+  
   // Initialize values
   sugarHeight = 0;
   spawnTime = 0;
@@ -93,12 +99,8 @@ function setupGame() {
 
 
 function draw() {
-  if (level == 0) {
-    showMainScreen();
-    lev1Button.draw();
-    return;
-  }
   
+  if (level != 0) {
   background(backgroundColor);
   resetButton.draw();
 
@@ -154,6 +156,7 @@ function draw() {
     fill(0, 0, 100);
     textSize(24);
     text(`You Completed the Level! \n Only took you ${length} pixels of line.`, 300, 175);
+  }
   }
 }
 
