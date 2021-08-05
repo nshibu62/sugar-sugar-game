@@ -359,13 +359,13 @@ function showMainScreen() {
   lev2Button.textColor = "#FFFFFF";   
 
     
-  lev1Button.onPress = function(){
-    level = 1;
+  lev2Button.onPress = function(){
+    level = 2;
     setupGame();
   }
   
   lev1Button.onPress = function(){
-    level = 2;
+    level = 1;
     setupGame();
   }
 }
