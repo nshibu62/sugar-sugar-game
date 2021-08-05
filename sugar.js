@@ -50,16 +50,6 @@ function setup() {
 }
 
 function setupGame() {  
-  if (level == 0) {
-    showMainScreen();
-    lev1Button.draw();
-    return;
-  }
-  lev1Button.onPress = function(){
-    level = 1;
-  }
-
-  
   // Initialize values
   sugarHeight = 0;
   spawnTime = 0;
@@ -99,8 +89,16 @@ function setupGame() {
 
 
 function draw() {
-  
-  if (level != 0) {
+  if (level == 0) {
+    showMainScreen();
+    lev1Button.draw();
+    return;
+  }
+  lev1Button.onPress = function(){
+    level = 1;
+  }
+
+  // if (level != 0) {
   background(backgroundColor);
   resetButton.draw();
 
@@ -157,8 +155,8 @@ function draw() {
     textSize(24);
     text(`You Completed the Level! \n Only took you ${length} pixels of line.`, 300, 175);
   }
-  }
-}
+ }
+//}
 
 class Sugar {
   constructor(sugarHeight, sugarXcenter) {
