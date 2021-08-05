@@ -14,7 +14,7 @@ textStyle, BOLD,
 
 
 //Divita's global variables
-let backgroundColor, instButton, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
+let backgroundColor, instButton, table3, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
 
 //Nisha's global variables
 let line_points, dist1;
@@ -95,7 +95,9 @@ function setupGame() {
   
   //initialize objects
   line_points = [];
-  sugarsAlreadyCaught = []
+  sugarsAlreadyCaught = [];
+  sugars = [];
+  cups = [];
   
   //level select
   if (level == 1) {
@@ -107,19 +109,20 @@ function setupGame() {
     tableWidth = width;
     tableHeight = 20;
     table1 = new Table(tableX, tableY, tableWidth, tableHeight);
-    
+    cups.push(new Cup(10, height-90, 80, 70));
     // tableX = 150;
     // tableY = 125;
     // tableWidth = 200;
     // tableHeight = 20;
     // table2 = new Table(tableX, tableY, tableWidth, tableHeight);
     
-  } //else if
-  
-  // Initialize objects
-  sugars = [];
-  cups = []
-  cups.push(new Cup(10, height-90, 80, 70))
+  } else if (level == 2){
+    tableX = 0;
+    tableY = height -20;
+    tableWidth = width;
+    tableHeight = 20;
+    table3 = new Table(tableX, tableY, tableWidth, tableHeight);
+  }
 
 
 }
@@ -171,8 +174,13 @@ function draw() {
     for (let i = 0; i < cups.length; i++) {
       cups[i].draw()
     }
-    table1.draw();
-    drawTable2();
+    
+    if (level == 1){
+      table1.draw();
+      drawTable2();
+    } else if (level == 2){
+      table3.draw();
+    }
     //table2.draw();
     collideSugarCup();
 
@@ -270,7 +278,7 @@ class Cup {
     fill(backgroundColor)
     textSize(20)
     textAlign(CENTER)
-    text(sugarLeft, this.x+this.w/2.5, this.y+this.h/2)
+    text(sugarLeft, this.x+this.w/2.6, this.y+this.h/2)
   }
   
 }
