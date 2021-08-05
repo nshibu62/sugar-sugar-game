@@ -14,7 +14,7 @@ textStyle, BOLD,
 
 
 //Divita's global variables
-let backgroundColor, instButton, table3, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
+let backgroundColor, instButton, table3, table4, table5, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
 
 //Nisha's global variables
 let line_points, dist1;
@@ -28,12 +28,6 @@ function setup() {
   backgroundColor = color(203, 96, 42);
   
   level = 0;
-  
-  //if level 1 button clicked:
-  //level = 1;
-  
-  //if level 2 button clicked:
-  //level = 2;
   
   //reset button
   resetButton = new Clickable();
@@ -122,6 +116,15 @@ function setupGame() {
     tableWidth = width;
     tableHeight = 20;
     table3 = new Table(tableX, tableY, tableWidth, tableHeight);
+    //two tables
+    
+    //three cups
+    /*
+        cups.push(new Cup(10, height-90, 80, 70));
+        cups.push(new Cup(10, height-90, 80, 70));
+        cups.push(new Cup(10, height-90, 80, 70));
+    */
+    
   }
 
 
@@ -180,6 +183,8 @@ function draw() {
       drawTable2();
     } else if (level == 2){
       table3.draw();
+      table4.draw();
+      table5.draw();
     }
     //table2.draw();
     collideSugarCup();
@@ -336,6 +341,34 @@ function drawTable2() {
   }
 }
 
+function drawTable4() {
+  fill(197, 48, 92);
+  rect(0, 125, 200, 20);
+  for (let sugar of sugars) {
+    table2Collision = collideRectRect(sugar.x, sugar.y, sugar.size, sugar.size, 150, 125, 200, 20);
+    if (table2Collision){
+        sugar.yv = 0;
+        sugar.xv = 0;
+        sugar.y = 122;
+        sugar.g = 0;
+    }
+  }
+}
+
+function drawTable5() {
+  fill(197, 48, 92);
+  rect(500, 125, 200, 20);
+  for (let sugar of sugars) {
+    table2Collision = collideRectRect(sugar.x, sugar.y, sugar.size, sugar.size, 150, 125, 200, 20);
+    if (table2Collision){
+        sugar.yv = 0;
+        sugar.xv = 0;
+        sugar.y = 122;
+        sugar.g = 0;
+    }
+  }
+}
+
 function showMainScreen() {
   //level 0 - main screen
   //300, 67, 42 --> dark purple
@@ -366,14 +399,13 @@ function showMainScreen() {
   lev2Button.text = "2";      
   lev2Button.textColor = "#FFFFFF";   
 
-    
-  lev2Button.onPress = function(){
-    level = 2;
-    setupGame();
-  }
-  
   lev1Button.onPress = function(){
     level = 1;
+    setupGame();
+  }
+      
+  lev2Button.onPress = function(){
+    level = 2;
     setupGame();
   }
 }
