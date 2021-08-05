@@ -24,7 +24,6 @@ function setup() {
   
   level = 0;
   
-  
   //if level 1 button clicked:
   //level = 1;
   
@@ -34,6 +33,18 @@ function setup() {
   //reset button
   resetButton = new Clickable();
   resetButton.locate(535, 20);
+  resetButton.width = 50;
+  resetButton.height = 15;
+  resetButton.stroke = "#FFFFFF";
+  resetButton.color = "#FFFFFF"; 
+  resetButton.text = "RESET";
+  resetButton.textColor = "#04446B";
+  resetButton.onPress = function(){
+    setupGame();
+  }
+  
+  homeButton = new Clickable();
+  rButton.locate(535, 20);
   resetButton.width = 50;
   resetButton.height = 15;
   resetButton.stroke = "#FFFFFF";
@@ -94,11 +105,7 @@ function draw() {
     lev1Button.draw();
     return;
   }
-  lev1Button.onPress = function(){
-    level = 1;
-  }
 
-  // if (level != 0) {
   background(backgroundColor);
   resetButton.draw();
 
@@ -156,7 +163,6 @@ function draw() {
     text(`You Completed the Level! \n Only took you ${length} pixels of line.`, 300, 175);
   }
  }
-//}
 
 class Sugar {
   constructor(sugarHeight, sugarXcenter) {
@@ -316,6 +322,7 @@ function showMainScreen() {
     
   lev1Button.onPress = function(){
     level = 1;
+    setupGame();
   }
 }
 
