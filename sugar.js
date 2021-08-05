@@ -14,7 +14,7 @@ textStyle, BOLD,
 
 
 //Divita's global variables
-let backgroundColor, instButton, table3, table4, table5, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
+let backgroundColor, instButton, table3, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
 
 //Nisha's global variables
 let line_points, dist1;
@@ -115,16 +115,16 @@ function setupGame() {
     tableY = height -20;
     tableWidth = width;
     tableHeight = 20;
-    table3 = new Table(tableX, tableY, tableWidth, tableHeight);
-    //two tables
-    
+    table3 = new Table(tableX, tableY, tableWidth, tableHeight);    
     //three cups
-    /*
-        cups.push(new Cup(10, height-90, 80, 70));
-        cups.push(new Cup(10, height-90, 80, 70));
-        cups.push(new Cup(10, height-90, 80, 70));
-    */
     
+        cups.push(new Cup(270, height-90, 80, 70));
+        cups.push(new Cup(100, 180, 80, 70));
+        cups.push(new Cup(425, 180, 80, 70));
+    
+    numSugarLimit = 200;
+    numOfSugar = 0;
+    sugarLeft = 50;
   }
 
 
@@ -181,10 +181,12 @@ function draw() {
     if (level == 1){
       table1.draw();
       drawTable2();
+      console.log("sdjfks");
     } else if (level == 2){
+      drawTable2();
       table3.draw();
-      table4.draw();
-      table5.draw();
+      drawTable4();
+      drawTable5();
     }
     //table2.draw();
     collideSugarCup();
@@ -343,10 +345,10 @@ function drawTable2() {
 
 function drawTable4() {
   fill(197, 48, 92);
-  rect(0, 125, 200, 20);
+  rect(0, 250, 200, 20);
   for (let sugar of sugars) {
-    table2Collision = collideRectRect(sugar.x, sugar.y, sugar.size, sugar.size, 150, 125, 200, 20);
-    if (table2Collision){
+    table4Collision = collideRectRect(sugar.x, sugar.y, sugar.size, sugar.size, 0, 250, 200, 20);
+    if (table4Collision){
         sugar.yv = 0;
         sugar.xv = 0;
         sugar.y = 122;
@@ -357,10 +359,10 @@ function drawTable4() {
 
 function drawTable5() {
   fill(197, 48, 92);
-  rect(500, 125, 200, 20);
+  rect(400, 250, 200, 20);
   for (let sugar of sugars) {
-    table2Collision = collideRectRect(sugar.x, sugar.y, sugar.size, sugar.size, 150, 125, 200, 20);
-    if (table2Collision){
+    table5Collision = collideRectRect(sugar.x, sugar.y, sugar.size, sugar.size, 400, 250, 200, 20);
+    if (table5Collision){
         sugar.yv = 0;
         sugar.xv = 0;
         sugar.y = 122;
