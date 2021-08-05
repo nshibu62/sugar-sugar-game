@@ -8,8 +8,13 @@ textStyle, BOLD,
 */
 //Eban, Divita, Nisha
 
+
+//TODO
+
+
+
 //Divita's global variables
-let backgroundColor, instButton, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, instButton, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
 
 //Nisha's global variables
 let line_points, dist1;
@@ -70,9 +75,9 @@ function setup() {
     
     instButton.onHover = function(){
       fill(0, 0, 100);
-      textSize(20);
-      text("Click on a start and end point with your mouse to draw a line.", 200, 100);
-      text("Use lines to get enough sugar into the cup.", 200, 30);
+      textSize(16);
+      text("Click on a start and end point with your mouse to draw a line.", 300, 40);
+      text("Use lines to get enough sugar into the cup.", 300, 60);
     }  
   }
   
@@ -125,6 +130,7 @@ function draw() {
     noStroke();
     showMainScreen();
     lev1Button.draw();
+    lev2Button.draw();
     instButton.draw();
     return;
   }
@@ -337,15 +343,29 @@ function showMainScreen() {
   lev1Button = new Clickable();
   lev1Button.color = "#FF66C4";  
   lev1Button.stroke = "#FF66C4"; 
-  lev1Button.locate(275, 250);
+  lev1Button.locate(235, 250);
   lev1Button.resize(50, 50);
   lev1Button.textSize = 35;
   lev1Button.text = "1";      
   lev1Button.textColor = "#FFFFFF";   
+  
+  lev2Button = new Clickable();
+  lev2Button.color = "#FF66C4";  
+  lev2Button.stroke = "#FF66C4"; 
+  lev2Button.locate(315, 250);
+  lev2Button.resize(50, 50);
+  lev2Button.textSize = 35;
+  lev2Button.text = "2";      
+  lev2Button.textColor = "#FFFFFF";   
 
     
   lev1Button.onPress = function(){
     level = 1;
+    setupGame();
+  }
+  
+  lev1Button.onPress = function(){
+    level = 2;
     setupGame();
   }
 }
