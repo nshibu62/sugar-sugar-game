@@ -9,18 +9,14 @@ textStyle, BOLD,
 //Eban, Divita, Nisha
 
 
-//TODO
-
-
-
 //Divita's global variables
-let backgroundColor, instButton, table3, table5Collision, table4Collision, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
+let backgroundColor, instButton, table3, sugarsAlreadyCaught3, hit3, table5Collision, table4Collision, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
 
 //Nisha's global variables
 let line_points, dist1;
 
 //Eban's global variables
-let sugarLeft, sugar2Left, cups, sugarsAlreadyCaught, lev1Button, hit2;
+let sugarLeft, sugar2Left, sugar3Left, cups, sugarsAlreadyCaught, sugarsAlreadyCaught2, lev1Button, hit2;
 
 function setup() {
   createCanvas(600, 500);
@@ -90,6 +86,8 @@ function setupGame() {
   //initialize objects
   line_points = [];
   sugarsAlreadyCaught = [];
+  sugarsAlreadyCaught2 = [];
+  sugarsAlreadyCaught3 = [];
   sugars = [];
   cups = [];
   
@@ -126,6 +124,7 @@ function setupGame() {
     numOfSugar = 0;
     sugarLeft = 50;
     sugar2Left = 50;
+    sugar3Left = 50;
   }
 
 
@@ -154,7 +153,11 @@ function draw() {
     numOfSugar++;
   }
   
-  if (sugarLeft == 0){
+  if (level == 1 && sugarLeft == 0){
+    gameIsOver = true;
+  }
+  
+  if (level == 2 && sugarLeft == 0 && sugar2Left == 0 && sugar3Left == 0){
     gameIsOver = true;
   }
   
@@ -293,6 +296,11 @@ class Cup {
       if (this.x == 100){
         text(sugar2Left, this.x+this.w/2.6, this.y+this.h/2);
       }
+
+      //if statement
+      if (this.x == 425){
+        text(sugar3Left, this.x+this.w/2.6, this.y+this.h/2);
+      }
     }
   }
   
@@ -337,9 +345,18 @@ function collideSugarCup() {
       hit2 = collideRectRect(100, 180, 80*0.65, 10,
       sugar.x, sugar.y, sugar.size, sugar.size)
       if (level == 2){
-        if (hit2 && sugar2Left && sugarsAlreadyCaught.indexOf(sugar) == -1){
+        if (hit2 && sugar2Left > 0 && sugarsAlreadyCaught2.indexOf(sugar) == -1){
           sugar2Left--;
-          sugarsAlreadyCaught.push(sugar);
+          sugarsAlreadyCaught2.push(sugar);
+        }
+      }
+      
+      hit3 = collideRectRect(425, 180, 80*0.65, 10,
+      sugar.x, sugar.y, sugar.size, sugar.size)
+      if (level == 2){
+        if (hit3 && sugar3Left > 0 && sugarsAlreadyCaught3.indexOf(sugar) == -1){
+          sugar3Left--;
+          sugarsAlreadyCaught3.push(sugar);
         }
       }
     }
