@@ -14,13 +14,13 @@ textStyle, BOLD,
 
 
 //Divita's global variables
-let backgroundColor, instButton, table3, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
+let backgroundColor, instButton, table3, table5Collision, table4Collision, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar, lev2Button;
 
 //Nisha's global variables
 let line_points, dist1;
 
 //Eban's global variables
-let sugarLeft, cups, sugarsAlreadyCaught, lev1Button;
+let sugarLeft, sugar2Left, cups, sugarsAlreadyCaught, lev1Button, hit2;
 
 function setup() {
   createCanvas(600, 500);
@@ -125,6 +125,7 @@ function setupGame() {
     numSugarLimit = 200;
     numOfSugar = 0;
     sugarLeft = 50;
+    sugar2Left = 50;
   }
 
 
@@ -275,17 +276,24 @@ class Cup {
   constructor(x, y, w, h) {
     this.img = loadImage("https://cdn.glitch.com/95c25cb1-e960-4da6-85bb-d5109d129e36%2Fmug-removebg-preview%20(1).png?v=1627998051536")
     // top left corner of the cup image
-    this.x = x
-    this.y = y
-    this.w = w
-    this.h = h
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
   }
   draw() {
-    image(this.img, this.x, this.y, this.w, this.h)
-    fill(backgroundColor)
-    textSize(20)
-    textAlign(CENTER)
-    text(sugarLeft, this.x+this.w/2.6, this.y+this.h/2)
+    image(this.img, this.x, this.y, this.w, this.h);
+    fill(backgroundColor);
+    textSize(20);
+    textAlign(CENTER);
+    if (this.y == (height-90)){
+      text(sugarLeft, this.x+this.w/2.6, this.y+this.h/2);
+    }
+    if (level == 2){
+      if (this.x == 100){
+        text(sugar2Left, this.x+this.w/2.6, this.y+this.h/2);
+      }
+    }
   }
   
 }
@@ -325,6 +333,15 @@ function collideSugarCup() {
         sugarLeft--;
         sugarsAlreadyCaught.push(sugar);
       }
+      
+      hit2 = collideRectRect(100, 180, 80*0.65, 10,
+      sugar.x, sugar.y, sugar.size, sugar.size)
+      if (level == 2){
+        if (hit2 && sugar2Left && sugarsAlreadyCaught.indexOf(sugar) == -1){
+          sugar2Left--;
+          sugarsAlreadyCaught.push(sugar);
+        }
+      }
     }
   }
 }
@@ -351,7 +368,7 @@ function drawTable4() {
     if (table4Collision){
         sugar.yv = 0;
         sugar.xv = 0;
-        sugar.y = 122;
+        sugar.y = 247;
         sugar.g = 0;
     }
   }
@@ -365,7 +382,7 @@ function drawTable5() {
     if (table5Collision){
         sugar.yv = 0;
         sugar.xv = 0;
-        sugar.y = 122;
+        sugar.y = 247;
         sugar.g = 0;
     }
   }
