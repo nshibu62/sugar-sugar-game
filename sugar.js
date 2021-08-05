@@ -9,7 +9,7 @@ textStyle, BOLD,
 //Eban, Divita, Nisha
 
 //Divita's global variables
-let backgroundColor, resetButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
+let backgroundColor, instButton, resetButton, homeButton, gameIsOver, table1, table2Collision, table2, tableCollision, tableX, tableY, tableWidth, tableHeight, spawnTime, numSugarLimit, level, sugarXcenter, sugars, time, sugarHeight, numOfSugar;
 
 //Nisha's global variables
 let line_points, dist1;
@@ -43,16 +43,37 @@ function setup() {
     setupGame();
   }
   
+  //home button
   homeButton = new Clickable();
-  rButton.locate(535, 20);
-  resetButton.width = 50;
-  resetButton.height = 15;
-  resetButton.stroke = "#FFFFFF";
-  resetButton.color = "#FFFFFF"; 
-  resetButton.text = "RESET";
-  resetButton.textColor = "#04446B";
-  resetButton.onPress = function(){
-    setupGame();
+  homeButton.locate(10, 20);
+  homeButton.width = 50;
+  homeButton.height = 15;
+  homeButton.stroke = "#FFFFFF";
+  homeButton.color = "#FFFFFF"; 
+  homeButton.text = "HOME";
+  homeButton.textColor = "#04446B";
+  homeButton.onPress = function(){
+    level = 0;
+  }
+  
+  if (level == 0){
+    instButton = new Clickable();
+    instButton.locate(20, 20);
+    instButton.width = 30;
+    instButton.cornerRadius = 40;     
+    instButton.height = 30;
+    instButton.stroke = "#FFFFFF";
+    instButton.color = "#FFFFFF"; 
+    instButton.text = "i";
+    instButton.textSize = 24;  
+    instButton.textColor = "#6B236B";
+    
+    instButton.onHover = function(){
+      fill(0, 0, 100);
+      textSize(20);
+      text("Click on a start and end point with your mouse to draw a line.", 200, 100);
+      text("Use lines to get enough sugar into the cup.", 200, 30);
+    }  
   }
   
   //Set up initial values and initialize objects
@@ -101,13 +122,16 @@ function setupGame() {
 
 function draw() {
   if (level == 0) {
+    noStroke();
     showMainScreen();
     lev1Button.draw();
+    instButton.draw();
     return;
   }
 
   background(backgroundColor);
   resetButton.draw();
+  homeButton.draw();
 
   spawnTime -= deltaTime/1000;
   if (spawnTime < 0 && numOfSugar < numSugarLimit){
